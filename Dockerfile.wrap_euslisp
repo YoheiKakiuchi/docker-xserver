@@ -1,0 +1,11 @@
+## docker build -f Dockerfile.wrap_euslisp -t devrt/xserver:latest_eus .
+FROM devrt/xserver:latest
+
+## foe euslisp
+RUN apt-get update -q -qq && \
+    apt-get install -q -qq -y  xfonts-100dpi xfonts-75dpi x11-xserver-utils x11-utils && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN sed -i -e 's@\-dpms@-dpms -fp /usr/share/fonts/X11/100dpi,/usr/share/fonts/X11/75dpi@' /app/conf.d/xvnc.conf
