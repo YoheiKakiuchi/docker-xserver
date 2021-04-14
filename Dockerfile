@@ -1,3 +1,7 @@
+ARG BASE_IMAGE
+## BASE_IMAGE is image from ubuntu:18.04
+
+### 1st stage
 FROM node:12 AS novnc
 
 # noVNC with chrome77 workaround patch
@@ -7,7 +11,9 @@ RUN cd /novnc && \
     npm install && \
     ./utils/use_require.js --as commonjs --with-app --clean
 
-FROM ubuntu:18.04
+### last stage
+FROM ${BASE_IMAGE}
+#FROM ubuntu:18.04
 
 MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
 

@@ -1,5 +1,9 @@
-## docker build -f Dockerfile.wrap_euslisp -t devrt/xserver:latest_eus .
-FROM devrt/xserver:latest
+## docker build --no-cache -f Dockerfile --build-arg BASE_IMAGE=ubuntu:18.04 -t devrt/xserver:latest
+## docker build --no-cache -f Dockerfile.wrap_euslisp --build-arg BASE_IMAGE=devrt/xserver:latest -t devrt/xserver:latest_eus .
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+#FROM devrt/xserver:latest
 
 ## foe euslisp
 RUN apt-get update -q -qq && \
