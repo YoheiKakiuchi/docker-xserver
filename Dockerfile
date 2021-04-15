@@ -7,15 +7,18 @@ FROM node:12 AS novnc
 # noVNC with chrome77 workaround patch
 RUN git clone https://github.com/phcapde/noVNC.git /novnc
 
-RUN cd /novnc && \
-    npm install && \
+WORKDIR /novnc
+ADD novnc.patch .
+RUN patch -p1 < novnc.patch
+RUN  npm install && \
     ./utils/use_require.js --as commonjs --with-app --clean
 
 ### last stage
+WORKDIR /
 FROM ${BASE_IMAGE}
 #FROM ubuntu:18.04
 
-MAINTAINER Yosuke Matsusaka <yosuke.matsusaka@gmail.com>
+MAINTAINER YoheiKakiuchi <youhei@jsk.imi.i.u-tokyo.ac.jp>
 
 ENV DISPLAY ":0"
 

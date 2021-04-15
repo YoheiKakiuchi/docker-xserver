@@ -1,0 +1,28 @@
+diff --git a/utils/use_require.js b/utils/use_require.js
+index d6e8d6a..9c1c236 100755
+--- a/utils/use_require.js
++++ b/utils/use_require.js
+@@ -1,20 +1,21 @@
+ #!/usr/bin/env node
+ 
+ const path = require('path');
+-const program = require('commander');
++const optparser = require('commander');
+ const fs = require('fs');
+ const fse = require('fs-extra');
+ const babel = require('babel-core');
+ 
+ const SUPPORTED_FORMATS = new Set(['amd', 'commonjs', 'systemjs', 'umd']);
+ 
+-program
++optparser
+     .option('--as [format]', `output files using various import formats instead of ES6 import and export.  Supports ${Array.from(SUPPORTED_FORMATS)}.`)
+     .option('-m, --with-source-maps [type]', 'output source maps when not generating a bundled app (type may be empty for external source maps, inline for inline source maps, or both) ')
+     .option('--with-app', 'process app files as well as core files')
+     .option('--only-legacy', 'only output legacy files (no ES6 modules) for the app')
+     .option('--clean', 'clear the lib folder before building')
+     .parse(process.argv);
++const program = optparser.opts()
+ 
+ // the various important paths
+ const paths = {
