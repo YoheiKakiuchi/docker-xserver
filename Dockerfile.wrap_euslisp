@@ -5,6 +5,8 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 #FROM devrt/xserver:latest
 
+MAINTAINER YoheiKakiuchi <youhei@jsk.imi.i.u-tokyo.ac.jp>
+
 ## foe euslisp
 RUN apt-get update -q -qq && \
     apt-get install -q -qq -y  xfonts-100dpi xfonts-75dpi x11-xserver-utils x11-utils eterm && \
